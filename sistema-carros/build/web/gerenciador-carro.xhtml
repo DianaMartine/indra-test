@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
+
+    <h:form>
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="objects">
+            <sc:toolbarCrud crudBean="#{carroBean}">
+            </sc:toolbarCrud>
+            <p:panelGrid columns="2" rendered="#{carroBean.busca == false}">
+                <h:outputLabel value="model"></h:outputLabel>
+                <p:inputText value="#{carroBean.entidade.model}"></p:inputText>
+                <h:outputLabel value="manufacturer"></h:outputLabel>
+                <p:inputText value="#{carroBean.entidade.manufacturer}"></p:inputText>
+                <h:outputLabel value="color"></h:outputLabel>
+                <p:inputText value="#{carroBean.entidade.color}"></p:inputText>
+                <h:outputLabel value="year"></h:outputLabel>
+                <p:inputMask mask="9999" value="#{carroBean.entidade.year}"></p:inputMask>
+            </p:panelGrid>
+            <p:dataTable value="#{carroBean.entidades}" var="car" rendered="#{carroBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="edit" action="#{carroBean.editar(car)}" update="@form"></p:commandButton>
+                    <p:commandButton value="delet" action="#{carroBean.delet(car)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="model" sortBy="#{car.model}">
+                    <h:outputText value="#{car.model}"></h:outputText>
+                </p:column>
+                <p:column headerText="manufacturer" sortBy="#{car.manufacturer}">
+                    <h:outputText value="#{car.manufacturer}"></h:outputText>
+                </p:column>
+                <p:column headerText="color" sortBy="#{car.color}">
+                    <h:outputText value="#{car.color}"></h:outputText>
+                </p:column>
+                <p:column headerText="year" sortBy="#{car.year}">
+                    <h:outputText value="#{car.year}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>
